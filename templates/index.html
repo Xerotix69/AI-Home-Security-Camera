@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jetson Camera</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</head>
+<body>
+    <div class="navbar">
+        <div class="navbar-brand">Jetson Camera</div>
+        <div class="navbar-links">
+            <a href="#">Settings</a>
+        </div>
+    </div>
+    <div class="video-container">
+        <img id="my-image" src="{{ url_for('video_feed') }}" alt="Live Feed" class="video-feed">
+    </div>
+    <div class="options-container">
+        <div class="option" onclick="openPage('#')">Key Events</div>
+        <div class="option" onclick="openPage('#')">Timelapse</div>
+        <div class="option" onclick="openPage('alerts')">Alerts</div>
+    </div>
+</body>
+</html>
