@@ -1,0 +1,123 @@
+/* Reset default styles */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* Basic styling */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+}
+
+.navbar {
+    background-color: #333;
+    color: white;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar-brand {
+    font-size: 1.5rem;
+}
+
+.navbar-links a {
+    color: white;
+    text-decoration: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.navbar-links a:hover {
+    background-color: #555;
+}
+
+.video-container {
+    max-width: 800px;
+    margin: 20px auto;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.video-feed {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.options-container {
+    max-width: 800px;
+    margin: 20px auto;
+    display: flex;
+    justify-content: flex-end; /* Align items to the right */
+}
+
+.option {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    margin-left: 10px;
+    border-radius: 20px; /* Rounded corners */
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.option:hover {
+    background-color: #45a049;
+}
+
+.log-container {
+    max-width: 800px;
+    margin: 20px auto;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+.log-container p {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.log-entry {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #ccc;
+    padding: 10px 0;
+}
+
+.log-entry div {
+    padding: 5px 10px;
+    border-radius: 5px;
+    background-color: #f0f0f0;
+    overflow-wrap: break-word;
+}
+
+.log-entry .date {
+    background-color: #e6e6e6;
+}
+
+.log-entry .time {
+    background-color: #f2f2f2;
+}
+
+.log-entry .location {
+    background-color: #e6e6e6;
+}
+
+.log-entry .reason {
+    background-color: #f2f2f2;
+}
+
+.log-entry .quality {
+    background-color: #e6e6e6;
+}

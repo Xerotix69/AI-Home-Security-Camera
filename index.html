@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jetson Camera</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</head>
+<body>
+    <div class="navbar">
+        <div class="navbar-brand">Jetson Camera</div>
+        <div class="navbar-links">
+            <a href="#">Settings</a>
+        </div>
+    </div>
+    <div class="video-container">
+        <img id="my-image" src="{{ url_for('video_feed') }}" alt="Live Feed" class="video-feed">
+    </div>
+    <div class="options-container">
+        <div class="option" onclick="openPage('#')">Timelapse</div>
+        <div class="option" onclick="take_screenshot()">Screenshot</div>
+        <div class="option" onclick="openPage('alerts')">Clip</div>
+        <div class="option" onclick="unlock('alerts')">Face Unlock</div>
+    </div>
+    <div class="log-container">
+        <p>LOGS</p>
+        <div class="log-entry">
+            <div class="date">28/06/2024</div>
+            <div class="time">12:00 PM</div>
+            <div class="location">Main Room</div>
+            <div class="reason">Motion Detected</div>
+            <div class="quality">High</div>
+        </div>
+        <div class="log-entry">
+            <div class="date">28/06/2024</div>
+            <div class="time">10:30 AM</div>
+            <div class="location">Backyard</div>
+            <div class="reason">Sound Alert</div>
+            <div class="quality">Medium</div>
+        </div>
+    </div>
+</body>
+</html>

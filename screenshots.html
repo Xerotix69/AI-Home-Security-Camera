@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Firebase Images</title>
+    <style>
+        img {
+            width: 100px;
+            height: 100px;
+            margin: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Firebase Images</h1>
+    <input type="text" id="folder-path" placeholder="Enter folder path (e.g., 'screenshots')">
+    <button onclick="loadImages()">Load Images</button>
+    <div id="images-container"></div>
+
+    <script>
+        async function loadImages() {
+            // Get the folder path from input, default to 'screenshots'
+            const folderPath = document.getElementById('folder-path').value || 'screenshots';
+            const response = await fetch(`/images?path=${encodeURIComponent(folderPath)}`);
+            const data = await response.json();
+            const container = document.getElementById('images-container');
+            container.innerHTML = data.image_urls.map(url => `<img src="${url}" alt="Image">`).join('');
+        }
+
+        // Optionally load images on page load
+        window.onload = loadImages;
+    </script>
+</body>
+</html>
