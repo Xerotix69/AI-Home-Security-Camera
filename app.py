@@ -76,16 +76,7 @@ def toggle_yolo():
 @app.route('/')
 def index():
     return render_template('login.html')
-    #Fetch recent screenshots and clips
-    recentScreenshots = fetch_media('screenshots',"images")
-    recentClips = fetch_media('clips',"videos")
-    logs = fetch_logs()
-
-
-    return render_template('index.html', 
-                            recentScreenshots=recentScreenshots, 
-                            recentClips=recentClips,
-                        logs = logs)
+    
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -98,8 +89,16 @@ def handle_login():
         success, e = login(email, password)
 
         if success:
-            flash('Login successful', 'success')
-            print("SUIII")  # Redirect to dashboard after login
+            #Fetch recent screenshots and clips
+            recentScreenshots = fetch_media('screenshots',"images")
+            recentClips = fetch_media('clips',"videos")
+            logs = fetch_logs()
+
+
+            return render_template('index.html', 
+                                    recentScreenshots=recentScreenshots, 
+                                    recentClips=recentClips,
+                                logs = logs)
         elif e:
             flash(f"An error occurred: {str(e)}", 'danger')
         else:
@@ -107,7 +106,8 @@ def handle_login():
     return render_template('login.html')
 
 @app.route('/video_feed')
- 
+def video_feed():
+    return Response(generate_frames(), mimetype='multipart/x-mixed-replace; boundary=frame')
 
 @app.route('/take_screenshot', methods=['POST'])
 def take_screenshot():
