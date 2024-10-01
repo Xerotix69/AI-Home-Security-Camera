@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.blue.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    </style>
+</head>     
+<body>
+    <nav class="container">
+        <ul>
+            <li><strong>Jetson Camera</strong></li>
+        </ul>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/screenshots">Screenshots</a></li>
+            <li><a href="/clips">Clips</a></li>
+            <li><a href="#">Settings</a></li>
+        </ul>
+    </nav>
+    
+    <main class="container">
+        <div class="content-container">
+            <div class="video-container">
+                <div class="video">
+                    <article>
+                    </article>
+                </div>
+                <button id="toggleButton" onclick="toggle_yolo()">Switch</button>
+                <div class="options-container">
+                    <label>Zoom<input type="range" id="zoomSlider" value="0" min="1" max="10" step="0.1" oninput="sendZoomValue()"/></label>
+                    <button class="option" onclick="take_snapshot()">Screenshot</button>
+                    <button class="option" onclick="record_clip()">Clip</button>
+                    <button class="option" onclick="unlock('alerts')">Face Unlock</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Search Form -->
+        <form action="{{ url_for('search.search') }}" method="get">
+            <div class="grid">
+                <div>
+                    <label for="query">Search</label>
+                    <input type="text" id="query" name="query" value="{{ query }}" placeholder="Enter search terms">
+                </div>
+                <div>
+                    <label for="camera">Camera</label>
+                    <select id="camera" name="camera">
+                        <option value="Front Gate" {% if camera_id == 'Front Gate' %}selected{% endif %}>Front Gate</option>
+                        <option value="Back Gate" {% if camera_id == 'Back Gate' %}selected{% endif %}>Back Gate</option>
+                        <option value="Lobby" {% if camera_id == 'Lobby' %}selected{% endif %}>Lobby</option>
+                    </select>
+                </div>
+            </div>
+            <button type="submit">Search</button>
+        </form>
+
+        <!-- Results -->
+        {% if events %}
+            <article>
+                {% for event in events %}
+                <details>
+                    <summary>Event ID: {{ event.id }}</summary>
+                    <div class="grid">
+                        <div>
+                            <p><strong>Camera:</strong> {{ event.cameraID }}</p>
+                            {% if event.timestamp %}
+                            <p><strong>Time:</strong> {{ event.timestamp }}</p>
+                            {% endif %}
+                            {% for key, value in event.items() %}
+                                {% if key not in ['id', 'cameraID', 'timestamp', 'image_url'] %}
+                                <p><strong>{{ key }}:</strong> {{ value }}</p>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                        {% if event.image_url %}
+                        <div>
+                            <img src="{{ event.image_url }}" alt="Event image" style="max-width: 200px;">
+                        </div>
+                        {% endif %}
+                    </div>
+                </details>
+                {% endfor %}
+            </article>
+        {% else %}
+            <article>
+                <p>No events found.</p>
+            </article>
+        {% endif %}
+    </main>
+
+    
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
