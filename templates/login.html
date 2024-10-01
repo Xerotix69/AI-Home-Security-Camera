@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.blue.min.css">
+    <script src="{{ url_for('static', filename='js/login.js') }}"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+</head> 
+<body>
+    <!-- Flash messages -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <ul>
+          {% for category, message in messages %}
+            <li class="{{ category }}">{{ message }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+    <form action="/login" method="POST">
+        <fieldset>
+            <input 
+                name="email"
+                placeholder="Email"
+                aria-label="Email"
+                autocomplete="username"
+            />
+            <input
+                type="password"
+                name="password"
+                placeholder="Password"
+                aria-label="Password"
+                autocomplete="current-password"
+            />
+            <input
+                type="submit"
+                value="Log in"
+            />
+        </fieldset>
+      </form>
+</body>
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jetson Camera</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.blue.min.css">
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    </style>
+</head> 
+<body>
+    <nav class="container">
+        <ul>
+            <li><strong>Jetson Camera</strong></li>
+        </ul>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/screenshots">Screenshots</a></li>
+            <li><a href="/clips">Clips</a></li>
+            <li><a href="#">Settings</a></li>
+        </ul>
+    </nav>
+    
+    <main class="container">
+        <div class="content-container">
+            <div class="video-container">
+                <div class="video">
+                    <article>
+                        <img id="my-image" src="{{ url_for('video_feed') }}" alt="Live Feed" class="video-feed">
+                    </article>
+                </div>
+                <button id="toggleButton" onclick="toggle_yolo()">Switch</button>
+                <div class="options-container">
+                    <label>Zoom<input type="range" id="zoomSlider" value="0" min="1" max="10" step="0.1" oninput="sendZoomValue()"/></label>
+                    <button class="option" onclick="take_screenshot()">Screenshot</button>
+                    <button class="option" onclick="record_clip()">Clip</button>
+                    <button class="option" onclick="unlock('alerts')">Face Unlock</button>
+                </div>
+            </div>
+            
+            <div class="gallery-container">
+                <h2>Recent Screenshots</h2>
+                <div class="grid">
+                    {% for i in range(2) %}
+                    <article>
+                        <div class="card">
+                            <div class="front">
+                                <img src="{{ recentScreenshots[0][i] }}" class="screenshot" alt="Screenshot">
+                            </div>
+                            <div class="back">
+                                <h6>Time: {{ recentScreenshots[1][i].Time }}</h6>
+                                <h6>Location: {{ recentScreenshots[1][i].Location }}</h6>
+                                <h6>Reason: {{ recentScreenshots[1][i].Reason }}</h6>
+                                <h6>Resolution: {{ recentScreenshots[1][i].Resolution }}</h6>
+                                <h6>NUM: {{ recentScreenshots[1][i].NUM }}</h6>
+                            </div>
+                        </div>
+                    </article>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        
+        <div class="log-container">
+            <h2>Logs</h2>
+            <table class="striped">
+                <thead>
+                  <tr>
+                    <th scope="col">Date</th>
+                    <th scope="col">Location</th>
+                    <th scope="col">Reason</th>
+                    <th scope="col">Resolution</th>
+                  </tr>
+                </thead>
+            {% for log in logs %}
+            <tr>
+                <th scope="row">{{ log.Timestamp }}</th>
+                <td>{{ log.Location }}</td>
+                <td>{{ log.Reason }}</td>
+                <td>{{ log.Resolution }}</td>
+            </tr>
+            {% endfor %}
+            </table>
+        </div>
+    </main>
+</body>
+</html>
