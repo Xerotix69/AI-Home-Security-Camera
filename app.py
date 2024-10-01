@@ -46,6 +46,7 @@ def capture_frame():
                     frame = zoom(zoomFactor, frame, camera.get(cv2.CAP_PROP_FRAME_WIDTH), camera.get(cv2.CAP_PROP_FRAME_HEIGHT))
                 currentFrame = frame
                 frameBuffer.append(frame)
+            yield frame
     finally:
         camera.release()
 
@@ -75,6 +76,15 @@ def toggle_yolo():
 
 @app.route('/')
 def index():
+    recentScreenshots = fetch_media('screenshots',"images")
+    recentClips = fetch_media('clips',"videos")
+    logs = fetch_logs()
+
+
+    return render_template('index.html', 
+                            recentScreenshots=recentScreenshots, 
+                            recentClips=recentClips,
+                        logs = logs)
     return render_template('login.html')
     
 
